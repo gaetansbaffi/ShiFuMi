@@ -2,6 +2,7 @@ let rock, paper, scissors;
 rock = "rock";
 paper = "paper";
 scissors = "scissors";
+let roundsChoice = parseInt(prompt("how many rounds would you like to play?"));
 
 function computerPLay() {
   let options = [rock, paper, scissors];
@@ -34,4 +35,4 @@ function rounds(rounds) {
   }
 }
 
-rounds(5);
+rounds(roundsChoice);
