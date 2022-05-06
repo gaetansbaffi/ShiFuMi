@@ -19,7 +19,7 @@ function setUi() {
   createElement("button", "rock", container);
   createElement("button", "paper", container);
   createElement("button", "scissors", container);
-  createElement("div", "Play a game!", container);
+  createElement("div", "Play a game!", container, "textDiv");
   createElement("div", `Your's Score: ${pScore}`, container, "pScore");
   createElement("div", `Vilain's Score: ${vScore}`, container, "vScore");
 
@@ -30,10 +30,12 @@ function setUi() {
   });
 }
 
+function reset() {
+  vScore = pScore = 0;
+  container.innerHTML = "";
+}
+
 setUi();
-let textDiv = container.querySelector("div");
-let vilainScoreDiv = container.querySelector("#vScore");
-let playerScoreDiv = container.querySelector("#pScore");
 
 //game logic
 //random choice
@@ -45,6 +47,10 @@ function computerPLay() {
 
 //single round logic
 function playRound(playerSelection, computerSelection = computerPLay()) {
+  let textDiv = container.querySelector("#textDiv");
+  let vilainScoreDiv = container.querySelector("#vScore");
+  let playerScoreDiv = container.querySelector("#pScore");
+  console.log(textDiv);
   if (playerSelection === computerSelection) {
     return (textDiv.textContent = "it's a tie!");
   } else if (
@@ -60,30 +66,29 @@ function playRound(playerSelection, computerSelection = computerPLay()) {
       } else {
         container.textContent = "You win !";
         createElement("button", "play again?", container);
+        let button = container.querySelector("button");
+        button.addEventListener("click", playAgain);
         return;
       }
     }
   } else {
+    vScore += 1;
     if (vScore < 5) {
-      vScore += 1;
       vilainScoreDiv.textContent = `Vilain's Score: ${vScore}`;
       return (textDiv.textContent = "You lose!");
     } else {
       container.textContent = "You lose !";
       createElement("button", "play again?", container);
+      let button = container.querySelector("button");
+      button.addEventListener("click", playAgain);
       return;
     }
   }
 }
 
 function playAgain() {
-  let answer = prompt("would you like to play again?");
-  if (answer == "yes") {
-    let newRounds = parseInt(prompt("how many rounds would you like to play?"));
-    return playGame(newRounds);
-  } else {
-    return console.log("bye then!");
-  }
+  reset();
+  setUi();
 }
 
 function playGame(rounds) {
