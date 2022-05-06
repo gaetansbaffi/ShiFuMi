@@ -6,6 +6,7 @@ scissors = "scissors";
 let vScore = 0;
 let pScore = 0;
 let container = document.querySelector("#container");
+
 // UI logic
 
 function createElement(type, text, receptor, id = "") {
@@ -54,6 +55,7 @@ function playRound(playerSelection, computerSelection = computerPLay()) {
   if (playerSelection === computerSelection) {
     return (textDiv.textContent = "it's a tie!");
   } else if (
+    //win
     (playerSelection == rock && computerSelection == scissors) ||
     (playerSelection == paper && computerSelection == rock) ||
     (playerSelection == scissors && computerSelection == paper)
@@ -71,7 +73,9 @@ function playRound(playerSelection, computerSelection = computerPLay()) {
         return;
       }
     }
-  } else {
+  }
+  //Lose
+  else {
     vScore += 1;
     if (vScore < 5) {
       vilainScoreDiv.textContent = `Vilain's Score: ${vScore}`;
@@ -89,12 +93,4 @@ function playRound(playerSelection, computerSelection = computerPLay()) {
 function playAgain() {
   reset();
   setUi();
-}
-
-function playGame(rounds) {
-  for (let index = 1; index <= rounds; index++) {
-    let choice = prompt("choose between rock, paper, scissors");
-    playRound(choice);
-  }
-  playAgain();
 }
