@@ -1,11 +1,41 @@
-//game logic
+//Variables
 let rock, paper, scissors;
 rock = "rock";
 paper = "paper";
 scissors = "scissors";
 let vScore = 0;
 let pScore = 0;
+let container = document.querySelector("#container");
+// UI logic
 
+function createElement(type, text, receptor, id = "") {
+  let element = document.createElement(type);
+  element.textContent = text;
+  receptor.append(element);
+  element.setAttribute("id", id);
+}
+
+function setUi() {
+  createElement("button", "rock", container);
+  createElement("button", "paper", container);
+  createElement("button", "scissors", container);
+  createElement("div", "Play a game!", container);
+  createElement("div", `Your's Score: ${pScore}`, container, "pScore");
+  createElement("div", `Vilain's Score: ${vScore}`, container, "vScore");
+
+  let buttons = document.querySelectorAll("button");
+
+  buttons.forEach((button) => {
+    button.addEventListener("click", (e) => playRound(e.target.textContent));
+  });
+}
+
+setUi();
+let textDiv = container.querySelector("div");
+let vilainScoreDiv = container.querySelector("#vScore");
+let playerScoreDiv = container.querySelector("#pScore");
+
+//game logic
 //random choice
 function computerPLay() {
   let options = [rock, paper, scissors];
@@ -24,13 +54,25 @@ function playRound(playerSelection, computerSelection = computerPLay()) {
   ) {
     {
       pScore += 1;
-      playerScoreDiv.textContent = `Your's Score: ${pScore}`;
-      return (textDiv.textContent = "You win!");
+      if (pScore < 5) {
+        playerScoreDiv.textContent = `Your's Score: ${pScore}`;
+        return (textDiv.textContent = "You win this round!");
+      } else {
+        container.textContent = "You win !";
+        createElement("button", "play again?", container);
+        return;
+      }
     }
   } else {
-    vScore += 1;
-    vilainScoreDiv.textContent = `Vilain's Score: ${vScore}`;
-    return (textDiv.textContent = "You lose!");
+    if (vScore < 5) {
+      vScore += 1;
+      vilainScoreDiv.textContent = `Vilain's Score: ${vScore}`;
+      return (textDiv.textContent = "You lose!");
+    } else {
+      container.textContent = "You lose !";
+      createElement("button", "play again?", container);
+      return;
+    }
   }
 }
 
@@ -51,30 +93,3 @@ function playGame(rounds) {
   }
   playAgain();
 }
-
-// UI logic
-let container = document.querySelector("#container");
-
-function createElement(type, text, receptor, id = "") {
-  let element = document.createElement(type);
-  element.textContent = text;
-  receptor.append(element);
-  element.setAttribute("id", id);
-}
-
-createElement("button", "rock", container);
-createElement("button", "paper", container);
-createElement("button", "scissors", container);
-createElement("div", "", container);
-createElement("div", `Your's Score: ${pScore}`, container, "pScore");
-createElement("div", `Vilain's Score: ${vScore}`, container, "vScore");
-
-let textDiv = container.querySelector("div");
-let vilainScoreDiv = container.querySelector("#vScore");
-let playerScoreDiv = container.querySelector("#pScore");
-
-let buttons = document.querySelectorAll("button");
-
-buttons.forEach((button) => {
-  button.addEventListener("click", (e) => playRound(e.target.textContent));
-});
