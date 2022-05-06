@@ -28,11 +28,22 @@ function game(playerSelection, computerSelection = computerPLay()) {
   }
 }
 
+function playAgain() {
+  let answer = prompt("would you like to play again?");
+  if (answer == "yes") {
+    let newRounds = parseInt(prompt("how many rounds would you like to play?"));
+    return rounds(newRounds);
+  } else {
+    return console.log("bye then!");
+  }
+}
+
 function rounds(rounds) {
   for (let index = 1; index <= rounds; index++) {
     let choice = prompt("choose between rock, paper, scissors");
     game(choice);
   }
+  playAgain();
 }
 
 rounds(roundsChoice);
