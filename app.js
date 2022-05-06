@@ -2,7 +2,6 @@ let rock, paper, scissors;
 rock = "rock";
 paper = "paper";
 scissors = "scissors";
-let choice = prompt("choose between rock, paper, scissors");
 
 function computerPLay() {
   let options = [rock, paper, scissors];
@@ -28,4 +27,11 @@ function game(playerSelection, computerSelection = computerPLay()) {
   }
 }
 
-game(choice);
+function rounds(rounds) {
+  for (let index = 1; index <= rounds; index++) {
+    let choice = prompt("choose between rock, paper, scissors");
+    game(choice);
+  }
+}
+
+rounds(5);
