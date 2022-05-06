@@ -1,8 +1,8 @@
+//game logic
 let rock, paper, scissors;
 rock = "rock";
 paper = "paper";
 scissors = "scissors";
-let roundsChoice = parseInt(prompt("how many rounds would you like to play?"));
 
 function computerPLay() {
   let options = [rock, paper, scissors];
@@ -46,4 +46,28 @@ function playGame(rounds) {
   playAgain();
 }
 
-playGame(roundsChoice);
+// UI logic
+let container = document.querySelector("#container");
+
+function createElement(type, text, receptor) {
+  let element = document.createElement(type);
+  element.textContent = text;
+  receptor.append(element);
+}
+
+createElement("button", "rock", container);
+createElement("button", "paper", container);
+createElement("button", "scissors", container);
+createElement("div", "", container);
+
+let textDiv = container.querySelector("div");
+
+let buttons = document.querySelectorAll("button");
+buttons.forEach((button) => {
+  button.addEventListener(
+    "click",
+    (e) => (textDiv.textContent = e.target.textContent)
+  );
+});
+
+//playGame(roundsChoice);
